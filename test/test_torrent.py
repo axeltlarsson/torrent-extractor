@@ -1,13 +1,14 @@
 #!/usr/bin/python3
 # Run the tests from the project root (torrent_extracter) with: python3 -m unittest discover --pattern=test_*
 
-import unittest, os
+import unittest, os, sys
 
-from ..torrent_extracter.torrent import TorrentFactory, TvEpisode, Film
-from ..torrent_extracter.settings import Settings
+sys.path.insert(0, os.path.abspath('..')) #hacks ;-)
+from torrent_extracter.torrent import TorrentFactory, TvEpisode, Film
+from torrent_extracter.settings import Settings
 
-class TorrentFactoryTest(unittest.TestCase):
-	""" Contains test cases for torrent_extracter.py """
+class TorrentTest(unittest.TestCase):
+	"""Contains test cases for module torrent.py"""
 	
 	def setUp(self):
 		self.torrentFactory = TorrentFactory()

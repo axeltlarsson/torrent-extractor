@@ -3,6 +3,7 @@
 
 import unittest, subprocess, os
 
+
 class TorrentExtracterTest(unittest.TestCase):
 	""" Contains test cases for torrent_extracter.py """
 	
@@ -41,7 +42,7 @@ class TorrentExtracterTest(unittest.TestCase):
 	#@unittest.skip("lf")
 	def test_copying(self):
 		for download in self.downloads:
-			cmd = r'./torrent_extracter.py -t /media/axel/test/tv_series -f /media/axel/test/films "' + self.path + download[0] + '"'
+			cmd = r'python3 ../torrent_extracter_runner.py -t /media/axel/test/tv_series -f /media/axel/test/films "' + self.path + download[0] + '"'
 			output = subprocess.getoutput(cmd)
 			print(output)
 			for i in range(1, len(download) - 1):
