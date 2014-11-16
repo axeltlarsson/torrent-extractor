@@ -1,8 +1,12 @@
 #!/usr/bin/python3
+"""torrent_extracter.torrent_extracter: provides entry point main()."""
+
+__version__ = "0.1"
+
 import re, sys, argparse, os
-from utils import debug
-from settings import Settings
-from torrent import TorrentFactory
+from .utils import debug
+from .settings import Settings
+from .torrent import TorrentFactory
 
 # Handles the command line parsing and starts the process of extracting/copying
 def main():

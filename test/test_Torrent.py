@@ -3,8 +3,8 @@
 
 import unittest, os
 
-from torrent import TorrentFactory, TvEpisode, Film
-from settings import Settings
+from ..torrent_extracter.torrent import TorrentFactory, TvEpisode, Film
+from ..torrent_extracter.settings import Settings
 
 class TorrentFactoryTest(unittest.TestCase):
 	""" Contains test cases for torrent_extracter.py """

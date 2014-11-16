@@ -1,7 +1,10 @@
 #!/usr/bin/python3
-from settings import Settings
-import re, os, rarfile, shutil
-from utils import debug
+
+"""torrent_extracter.torrent: provides data structure"""
+from .settings import Settings
+from .rarfile import *
+import re, os, shutil
+from .utils import debug
 
 class TorrentFactory(object):
 	""" 
@@ -90,13 +93,13 @@ class TorrentFactory(object):
 		
 			elif self.__is_rarfile(file_path):
 				try:
-					rar = rarfile.RarFile(file_path)
+					rar = RarFile(file_path)
 					for rarinfo in rar.infolist():
 						if self.__has_ok_extension(rarinfo.filename):
 							torrent = self.__make_torrent(parent_folder, file_path, rarinfo, rar)
 							if torrent:
 								torrents.append(torrent)
-				except rarfile.NeedFirstVolume as e: # Fall som r'.part\d\d.rar' där bara r'.part01.rar' fungerar.
+				except NeedFirstVolume as e: # Fall som r'.part\d\d.rar' där bara r'.part01.rar' fungerar.
 					pass
 				except Exception as e:
 					debug(str(e), Settings.QUIET)
@@ -114,7 +117,7 @@ class TorrentFactory(object):
 
 	# Returns true if *file_path* has extension '.rar' AND is a rar file according to rarfile.is_rarfile
 	def __is_rarfile(self, file_path):
-		return os.path.splitext(file_path)[1] == '.rar' and rarfile.is_rarfile(file_path)
+		return os.path.splitext(file_path)[1] == '.rar' and is_rarfile(file_path)
 
 class Torrent(object):
 	"""
