@@ -45,4 +45,4 @@ def main():
 		torrent.copy()
 
 if __name__ == "__main__":
-  main()
+	main()
