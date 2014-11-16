@@ -45,3 +45,5 @@ docs/_build/
 target/
 # Sublime files
 *.sublime-*
+# virtualenv dirs
+venv*/
