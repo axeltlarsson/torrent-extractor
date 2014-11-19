@@ -10,6 +10,8 @@ from .torrent import TorrentFactory
 
 # Handles the command line parsing and starts the process of extracting/copying
 def main():
+	import getpass
+	print("Current user is: " + getpass.getuser())
 	#-----------------------------------
 	#	Dealing with args and settings
 	#-----------------------------------
