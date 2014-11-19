@@ -17,7 +17,7 @@ class TorrentExtracterTest(unittest.TestCase):
 		self.downloads.append(('Austin.Powers.Boxset.TorrentLeech.1080p', 'films/Austin Powers in Goldmember/tl-apig.mkv', 'films/Austin Powers International Man Of Mystery/Austin.Powers.International.Man.Of.Mystery.1080p-iKA.mkv', 'films/Austin Powers The Spy Who Shagged Me/tl-aptswsm.mkv'))
 		self.downloads.append(('Bourne.Trilogy.COMPLETE.1080p.x264-TL', 'films/The Bourne Identity/tl-tbi.mkv', 'films/The Bourne Supremacy/tl-tbs.mkv', 'films/The Bourne Ultimatum/The.Bourne.Ultimatum.2007.1080p.HDVD.DTS.x264-hV.mkv'))
 		self.downloads.append(('Divergent.2014.720p.BluRay.DD5.1.x264-HiDt', 'films/Divergent/Divergent.2014.720p.BluRay.DD5.1.x264-HiDt.mkv'))
-		self.downloads.append(('Good.Will.Hunting.1997.1080p.15th.Anniversary.Edition.BluRay.DTS-HD.x264-BARC0DE', 'films/Good Will Hunting/Good.Will.Hunting.1997.1080p.15th.Anniversary.Edition.BluRay.DTS-HD.x264-BARC0DE.mkv'))
+		self.downloads.append(('The.Men.Who.Stare.at.Goats.2009.1080p.BluRay.x264-SECTOR7', 'films/The Men Who Stare at Goats/s7-men.who.stare.at.goats.x264.mkv'))
 		#self.downloads.append(('James bond 1080p.BluRay.x264 BIG PACK -TL', 'James bond')) # The World is not enough saknar part04.rar, "James.Bond.007.Quantum.of.Solace.1080p.BluRay.x264-REFiNED" känns inte igen i regex
 		#self.downloads.append('John Denver - Greatest Hits [1973]  FLAC')
 		#self.downloads.append('John Denver - The Very Best Of John Denver')
