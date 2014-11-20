@@ -11,8 +11,9 @@ tv series. The script relies on a carefully crafted regular expression to determ
 
 Installation
 ------------
-First, you need to have the setuptools module installed, this can be installed with "apt-get install python3-setuptools". Then it's pretty straightforward, you just run "sudo python3 setup.py install", afterwards you can optionally run a clean-up command: "sudo python3 setup.py clean --all" which will clean up the directory a bit. But the important consequence of the install command is
-that it should now be possible to just run "torrent_extracter" from anywhere in the system.
+First, you need to have the setuptools module installed, this can be installed with "apt-get install python3-setuptools". Then it's pretty straightforward, you just run 
+"sudo python3 setup.py install", afterwards you can optionally run a clean-up command: "sudo python3 setup.py clean --all" which will clean up the directory a bit. But the important consequence of
+the install command is that it should now be possible to just run "torrent_extracter" from anywhere in the system.
 
 Usage
 -----
