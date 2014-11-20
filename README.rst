@@ -39,7 +39,8 @@ optional arguments:
 Project file structure
 ----------------------
 The project is structured according to `Distributing a python command line application`_.
-In short this means that the project can be compiled into a single executable file (or rather eggsecutable) via the "setup.py install" command. It also means that the project cannot be run directly via the "torrent_extracter/torrent_extracter.py" file properly, instead a convenience wrapper "torrent_extracter_runner.py" is available for direct use in the source tree. 
+In short this means that the project can be compiled into a single executable file (or rather eggsecutable) via the "setup.py install" command. It also means that the project cannot be run 
+directly via the "torrent_extracter/torrent_extracter.py" file properly, instead a convenience wrapper "torrent_extracter_runner.py" is available for direct use in the source tree. 
 :: _Distributing a python command line application: http://gehrcke.de/2014/02/distributing-a-python-command-line-application/
 
 Common problems
