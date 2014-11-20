@@ -11,9 +11,7 @@ tv series. The script relies on a carefully crafted regular expression to determ
 
 Installation
 ------------
-First, you need to have the setuptools module installed, this can be installed with "apt-get install python3-setuptools".
-The it's pretty straightforward, you just run "sudo python3 setup.py install", afterwards you can optionally run a clean-up command:
-"sudo python3 setup.py clean --all" which will clean up the directory a bit. But the important consequence of the install command is
+First, you need to have the setuptools module installed, this can be installed with "apt-get install python3-setuptools". Then it's pretty straightforward, you just run "sudo python3 setup.py install", afterwards you can optionally run a clean-up command: "sudo python3 setup.py clean --all" which will clean up the directory a bit. But the important consequence of the install command is
 that it should now be possible to just run "torrent_extracter" from anywhere in the system.
 
 Usage
@@ -45,6 +43,6 @@ directly via the "torrent_extracter/torrent_extracter.py" file properly, instead
 
 Common problems
 ---------------
-If the "torrent_extracter" command does not launch the app properly it could be due to the fact that the executable /usr/local/bin/torrent_extracter
-actually points to an eggsecutable such as /usr/local/lib/python3.4/dist-packages/torrent_extracter-X.X-py3.4.egg and you need to make sure to have read permission
-to this file as well as executable permission to the /usr/local/bin/torrent_extracter file.
+If the "torrent_extracter" command does not launch the app properly it could be due to the fact that the executable /usr/local/bin/torrent_extracter actually points to an eggsecutable such as 
+/usr/local/lib/python3.4/dist-packages/torrent_extracter-X.X-py3.4.egg and you need to make sure to have read permission to this file as well as executable permission to the 
+/usr/local/bin/torrent_extracter file.
