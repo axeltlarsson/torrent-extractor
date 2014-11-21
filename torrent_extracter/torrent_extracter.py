@@ -3,37 +3,60 @@
 
 __version__ = "0.1"
 
-import re, sys, argparse, os
-from .utils import debug
+import re
+import sys
+import argparse
+import os
 from .settings import Settings
 from .torrent import TorrentFactory
+import logging
+from logging.handlers import TimedRotatingFileHandler
+from logging import StreamHandler
 
 # Handles the command line parsing and starts the process of extracting/copying
 def main():
 	#-----------------------------------
-	#	Dealing with args and settings
+	#	Deal with args and settings
 	#-----------------------------------
 	parser = argparse.ArgumentParser(description="Intelligently copies/extracts films and tv series to respective target directories")
-	group = parser.add_mutually_exclusive_group()
-	group.add_argument("-v", "--verbose", action="store_true", help="set this flag to display more verbose output")
-	group.add_argument("-q", "--quiet", action="store_true", help="set this flag to display less verbose output.")
 	parser.add_argument("-t", "--tv_path", help="path to destination folder for TV shows")
 	parser.add_argument("-f", "--film_path", help="path to destination folder for films")
+	parser.add_argument("-n", "--no_logfile", action="store_true", help="set this flag to prevent log files from being written")
 	parser.add_argument("torrent", help="the file path to the torrent to extract")
 	args = parser.parse_args()
 
 	settings = Settings()
 	settings.tv_path = os.path.normpath(args.tv_path or "/tmp/tv_series")
-	settings.film_path = os.path.normpath(args.film_path or "/tmp/films")
-	if args.quiet:
-		settings.verbosity = 0
-	elif args.verbose:
-		settings.verbosity = 2
-	else:
-		settings.verbosity = 1		
+	settings.film_path = os.path.normpath(args.film_path or "/tmp/films")	
 	
+	#-----------------------------------
+	#	Set up logging
+	#-----------------------------------
+	log = logging.getLogger("torrent_extracter")
+	log.setLevel(logging.INFO)
+	# Set up a console handler
+	console_handler = StreamHandler()
+	console_handler.setLevel(logging.INFO)
+	console_formatter = logging.Formatter(fmt='[%(levelname)s] %(message)s', 
+		datefmt='%b %d %H:%M:%S')
+	console_handler.setFormatter(console_formatter)
+	log.addHandler(console_handler)
+
+	# Set up a file handler that also rotates the logs
+	if not args.no_logfile:
+		file_handler = TimedRotatingFileHandler('torrent_extracter.log', 
+			when='s', 
+			interval=5, 
+			backupCount=5, # keep 5 backups
+			delay=True) # do not open the log file until first log message
+		file_handler.setLevel(logging.DEBUG) # will log everything
+		file_formatter = logging.Formatter(fmt='%(asctime)s %(name)s [%(levelname)s] %(message)s', 
+			datefmt='%b %d %H:%M:%S')
+		file_handler.setFormatter(file_formatter)
+		log.addHandler(file_handler)
+			
 	if not os.path.exists(args.torrent):
-		print(args.torrent + " does not exist.")
+		log.error(args.torrent + " does not exist.")
 		sys.exit(1)
 
 	#-----------------------------------

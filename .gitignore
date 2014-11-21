@@ -47,3 +47,5 @@ target/
 *.sublime-*
 # virtualenv dirs
 venv*/
+# no log files
+*.log.*

@@ -13,11 +13,6 @@ class Settings:
         def __str__(self):
             return repr(self)
 
-    # "Constants" for setting debug level
-    NORMAL = 1
-    VERBOSE = 2
-    QUIET = 0
-
     # List with supported extensions
     ok_extensions = ['.mkv', '.ts', '.avi', '.srt', '.sub']
 

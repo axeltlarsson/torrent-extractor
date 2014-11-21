@@ -3,8 +3,12 @@
 """torrent_extracter.torrent: provides data structure"""
 from .settings import Settings
 import torrent_extracter.rarfile as rarfile
-import re, os, shutil
-from .utils import debug
+import re
+import os
+import shutil
+import logging
+
+log = logging.getLogger("torrent_extracter.torrent")
 
 class TorrentFactory(object):
 	""" 
@@ -38,12 +42,12 @@ class TorrentFactory(object):
 		torrent = None
 		match_tv = self.__match_tv_series(match_string)
 		if match_tv:
-			debug(match_string + " is a TV series", Settings.VERBOSE)
+			log.info(match_string + " is a TV series")
 			torrent = TvEpisode(match_tv, file_path)
 		
 		match_film = self.__match_film(match_string)
 		if not match_tv and match_film:
-			debug(match_string + " is a film", Settings.VERBOSE)
+			log.debug(match_string + " is a film")
 			torrent = Film(match_film, file_path)
 
 		if torrent and rarinfo:
@@ -72,6 +76,7 @@ class TorrentFactory(object):
 	def __make_recursive(self, file_path, torrents):
 		file_path = os.path.abspath(file_path)
 		if not os.path.exists(file_path):
+			log.error('The path: ' + file_path + ' does not exist.')
 			raise FileNotFoundError('The path: ' + file_path + ' does not exist.')
 
 		basename = os.path.basename(file_path)
@@ -85,8 +90,8 @@ class TorrentFactory(object):
 				if torrent:
 					torrents.append(torrent)
 				else:
-					debug(parent_folder + " is neither a film nor a TV series", Settings.VERBOSE)
-					debug("Trying with basename instead: " + basename, Settings.VERBOSE)
+					log.debug(parent_folder + " is neither a film nor a TV series")
+					log.debug("Trying with basename instead: " + basename)
 					torrent = self.__make_torrent(basename, file_path)
 					if torrent:
 						torrents.append(torrent)
@@ -100,9 +105,9 @@ class TorrentFactory(object):
 							if torrent:
 								torrents.append(torrent)
 				except rarfile.NeedFirstVolume as e: # Fall som r'.part\d\d.rar' där bara r'.part01.rar' fungerar.
-					pass
+					log.error("Need first rar volume: " + str(e))
 				except Exception as e:
-					debug(str(e), Settings.QUIET)
+					log.error(str(e))
 
 		elif os.path.isdir(file_path):
 			filenames = os.listdir(file_path)
@@ -136,13 +141,13 @@ class Torrent(object):
 		if not os.path.exists(self.destination):
 			os.makedirs(self.destination)
 		if not os.path.exists(os.path.join(self.destination, os.path.basename(self.file_path))):
-			debug("* {0:12} {1:110}{2:10}{3:<}".format("Copying:", os.path.basename(self.file_path), "==>", self.destination), Settings.NORMAL)
+			log.info("* {0:12} {1:110}{2:10}{3:<}".format("Copying:", os.path.basename(self.file_path), "==>", self.destination))
 			try:
 				shutil.copy(self.file_path, self.destination)
 			except OSError as e:
-				debug(str(e), Settings.QUIET)
+				log.error("Could not copy file: " + str(e))
 		else:
-			debug(os.path.join(self.destination, os.path.basename(self.file_path)) + " already exists, skipping.", Settings.VERBOSE)
+			log.info(os.path.join(self.destination, os.path.basename(self.file_path)) + " already exists, skipping.")
 
 class TvEpisode(Torrent):
 	"""
@@ -189,7 +194,10 @@ class RarTorrent(Torrent):
 			os.makedirs(self.torrent.destination)
 
 		if not os.path.exists(os.path.join(self.torrent.destination, self.rarinfo.filename)):
-			debug("* {0:12} {1:110}{2:10}{3:<}".format("Extracting:", self.rarinfo.filename, "==>", self.torrent.destination), Settings.NORMAL)
-			self.rarfile.extract(self.rarinfo, self.torrent.destination)
+			log.info("* {0:12} {1:110}{2:10}{3:<}".format("Extracting:", self.rarinfo.filename, "==>", self.torrent.destination))
+			try:
+				self.rarfile.extract(self.rarinfo, self.torrent.destination)
+			except rarfile.RarWriteError as e:
+				log.error("Could not extract rarfile: " + str(e))
 		else:
-			debug(os.path.join(self.torrent.file_path, self.torrent.destination) + " already exists, skipping.", Settings.VERBOSE)
+			log.info(os.path.join(self.torrent.destination, self.rarinfo.filename) + " already exists, skipping.")
