@@ -13,7 +13,7 @@ def main():
 	#-----------------------------------
 	#	Dealing with args and settings
 	#-----------------------------------
-	parser = argparse.ArgumentParser(description="Extract or copy provided file path to either a TV show or Film directory.")
+	parser = argparse.ArgumentParser(description="Intelligently copies/extracts films and tv series to respective target directories")
 	group = parser.add_mutually_exclusive_group()
 	group.add_argument("-v", "--verbose", action="store_true", help="set this flag to display more verbose output")
 	group.add_argument("-q", "--quiet", action="store_true", help="set this flag to display less verbose output.")
