@@ -42,7 +42,7 @@ class TorrentFactory(object):
 		torrent = None
 		match_tv = self.__match_tv_series(match_string)
 		if match_tv:
-			log.info(match_string + " is a TV series")
+			log.debug(match_string + " is a TV series")
 			torrent = TvEpisode(match_tv, file_path)
 		
 		match_film = self.__match_film(match_string)
@@ -105,7 +105,7 @@ class TorrentFactory(object):
 							if torrent:
 								torrents.append(torrent)
 				except rarfile.NeedFirstVolume as e: # Fall som r'.part\d\d.rar' där bara r'.part01.rar' fungerar.
-					log.error("Need first rar volume: " + str(e))
+					log.error("Need first rar volume: " + str(os.path.basename(file_path)))
 				except Exception as e:
 					log.error(str(e))
 
@@ -147,7 +147,7 @@ class Torrent(object):
 			except OSError as e:
 				log.error("Could not copy file: " + str(e))
 		else:
-			log.info(os.path.join(self.destination, os.path.basename(self.file_path)) + " already exists, skipping.")
+			log.debug(os.path.join(self.destination, os.path.basename(self.file_path)) + " already exists, skipping.")
 
 class TvEpisode(Torrent):
 	"""
@@ -200,4 +200,4 @@ class RarTorrent(Torrent):
 			except rarfile.RarWriteError as e:
 				log.error("Could not extract rarfile: " + str(e))
 		else:
-			log.info(os.path.join(self.torrent.destination, self.rarinfo.filename) + " already exists, skipping.")
+			log.debug(os.path.join(self.torrent.destination, self.rarinfo.filename) + " already exists, skipping.")

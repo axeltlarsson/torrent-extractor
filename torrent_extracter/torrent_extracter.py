@@ -10,7 +10,7 @@ import os
 from .settings import Settings
 from .torrent import TorrentFactory
 import logging
-from logging.handlers import TimedRotatingFileHandler
+from logging.handlers import RotatingFileHandler
 from logging import StreamHandler
 
 # Handles the command line parsing and starts the process of extracting/copying
@@ -21,7 +21,7 @@ def main():
 	parser = argparse.ArgumentParser(description="Intelligently copies/extracts films and tv series to respective target directories")
 	parser.add_argument("-t", "--tv_path", help="path to destination folder for TV shows")
 	parser.add_argument("-f", "--film_path", help="path to destination folder for films")
-	parser.add_argument("-n", "--no_logfile", action="store_true", help="set this flag to prevent log files from being written")
+	parser.add_argument("-d", "--debug", action="store_true", help="set this flag to prevent log files from being written and enable DEBUG-level output to console")
 	parser.add_argument("torrent", help="the file path to the torrent to extract")
 	args = parser.parse_args()
 
@@ -33,30 +33,31 @@ def main():
 	#	Set up logging
 	#-----------------------------------
 	log = logging.getLogger("torrent_extracter")
-	log.setLevel(logging.INFO)
+	log_level = logging.DEBUG if args.debug else logging.INFO
+	log.setLevel(log_level)
+
 	# Set up a console handler
-	console_handler = StreamHandler()
-	console_handler.setLevel(logging.INFO)
+	console_handler = StreamHandler(stream=sys.stderr)
+	console_handler.setLevel(log_level)
 	console_formatter = logging.Formatter(fmt='[%(levelname)s] %(message)s', 
 		datefmt='%b %d %H:%M:%S')
 	console_handler.setFormatter(console_formatter)
 	log.addHandler(console_handler)
 
-	# Set up a file handler that also rotates the logs
-	if not args.no_logfile:
-		file_handler = TimedRotatingFileHandler('torrent_extracter.log', 
-			when='s', 
-			interval=5, 
+	# Set up a file handler that also rotates the logs, unless of course debug mode is set, then we only log to console
+	if not args.debug:
+		file_handler = RotatingFileHandler('torrent_extracter.log', 
+			maxBytes=30000, # gives about 220 lines before rotating
 			backupCount=5, # keep 5 backups
-			delay=True) # do not open the log file until first log message
+			delay=True) # do not write the log file until first log message
 		file_handler.setLevel(logging.DEBUG) # will log everything
 		file_formatter = logging.Formatter(fmt='%(asctime)s %(name)s [%(levelname)s] %(message)s', 
 			datefmt='%b %d %H:%M:%S')
 		file_handler.setFormatter(file_formatter)
 		log.addHandler(file_handler)
 			
-	if not os.path.exists(args.torrent):
-		log.error(args.torrent + " does not exist.")
+	if not os.path.exists(os.path.normpath(args.torrent)):
+		log.critical(os.path.normpath(args.torrent) + " does not exist, exiting.")
 		sys.exit(1)
 
 	#-----------------------------------
@@ -64,6 +65,8 @@ def main():
 	#-----------------------------------
 	torrentFactory = TorrentFactory()
 	torrents = torrentFactory.make(os.path.normpath(args.torrent))
+	if not torrents:
+		log.info("No torrents to unpack or extract found in " + os.path.normpath(args.torrent))
 	for torrent in torrents:
 		torrent.copy()
 
