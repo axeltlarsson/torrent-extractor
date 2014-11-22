@@ -5,7 +5,6 @@ import unittest, os, sys
 
 sys.path.insert(0, os.path.abspath('..')) #hacks ;-)
 from torrent_extracter.torrent import TorrentFactory, TvEpisode, Film
-from torrent_extracter.settings import Settings
 
 class TorrentTest(unittest.TestCase):
 	"""Contains test cases for module torrent.py"""
@@ -14,9 +13,6 @@ class TorrentTest(unittest.TestCase):
 		self.torrentFactory = TorrentFactory()
 
 		self.errors = [] # collects errors
-		
-		settings = Settings()
-		settings.verbosity = Settings.QUIET
 
 		# These are just dummy names, the files does not exist, the format is (file name, tv series name, season number)
 		self.tvepisodesdummies = []
@@ -31,6 +27,7 @@ class TorrentTest(unittest.TestCase):
 		self.tvepisodesdummies.append(('Weissensee - S01E01.avi', 'Weissensee', 'Season 1'))
 		self.tvepisodesdummies.append(('House.of.Cards.2013.S02.1080p.NF.WEBRip.DD5.1.x264-NTb', 'House of Cards 2013', 'Season 2'))
 		self.tvepisodesdummies.append(('Downton_Abbey.5x01.720p_HDTV_x264-FoV', 'Downton Abbey', 'Season 5'))
+		self.tvepisodesdummies.append(('Brooklyn.Nine-Nine.S02E06.720p.HDTV.x264-KILLERS', 'Brooklyn Nine-Nine', 'Season 2'))
 
 		# These are also just dummy names, the files does not actually exist, the format is (file name, film title)
 		self.filmdummies = []
@@ -89,8 +86,8 @@ class TorrentTest(unittest.TestCase):
 		for film in self.filmdummies:
 			try:
 				actual = self.torrentFactory._TorrentFactory__make_torrent(film[0], "dummy file path")
-				expexted = Film(film[1], "dummy file path")
-				self.assertEqual(actual, expexted)
+				expected = Film(film[1], "dummy file path")
+				self.assertEqual(actual, expected)
 			except AssertionError as e:
 				self.errors.append(str(e))
 
