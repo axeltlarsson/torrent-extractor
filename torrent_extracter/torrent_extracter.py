@@ -32,7 +32,7 @@ def main():
 	#-----------------------------------
 	#	Set up logging
 	#-----------------------------------
-	log = logging.getLogger("torrent_extracter")
+	log = logging.getLogger("t_e")
 	log_level = logging.DEBUG if args.debug else logging.INFO
 	log.setLevel(log_level)
 

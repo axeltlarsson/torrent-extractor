@@ -8,7 +8,7 @@ import os
 import shutil
 import logging
 
-log = logging.getLogger("torrent_extracter.torrent")
+log = logging.getLogger("t_e.torrent")
 
 class TorrentFactory(object):
 	""" 
@@ -141,7 +141,7 @@ class Torrent(object):
 		if not os.path.exists(self.destination):
 			os.makedirs(self.destination)
 		if not os.path.exists(os.path.join(self.destination, os.path.basename(self.file_path))):
-			log.info("* {0:12} {1:110}{2:10}{3:<}".format("Copying:", os.path.basename(self.file_path), "==>", self.destination))
+			log.info("{op:11} {source:60}\t{to:^}\t{destination:>}".format(op="Copying:", source=os.path.basename(self.file_path), to="==>", destination=self.destination))
 			try:
 				shutil.copy(self.file_path, self.destination)
 			except OSError as e:
@@ -194,7 +194,7 @@ class RarTorrent(Torrent):
 			os.makedirs(self.torrent.destination)
 
 		if not os.path.exists(os.path.join(self.torrent.destination, self.rarinfo.filename)):
-			log.info("* {0:12} {1:110}{2:10}{3:<}".format("Extracting:", self.rarinfo.filename, "==>", self.torrent.destination))
+			log.info("{op:11} {source:60}\t{to:^}\t{destination:>}".format(op="Extracting:", source=self.rarinfo.filename, to="==>", destination=self.torrent.destination))
 			try:
 				self.rarfile.extract(self.rarinfo, self.torrent.destination)
 			except rarfile.RarWriteError as e:
