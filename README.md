@@ -1,4 +1,4 @@
-# torrent_extracter by Axel Larsson 20 nov 2014
+# torrent_extracter by Axel Larsson
 
 The torrent_extracter script is written in python3 and its purpose is to first analyse a given file path to determine what sort of media it points to, for example a film or a tv series episode or
 season pack. The script then either copies this/these file/files to a suitable directory such as "films/Film name/film.file.mkv" if a film or "series/Series name/Season #/episode.mkv" if a 
@@ -17,22 +17,22 @@ the install command is that it should now be possible to just run `torrent_extra
 
 Usage
 -----
-usage: run_torrent_extracter.py [-h] [-t TV_PATH] [-f FILM_PATH] [-d] torrent
-
-Intelligently copies/extracts films and tv series to respective target
-directories
-
-positional arguments:
-  torrent               the file path to the torrent to extract
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -t TV_PATH, --tv_path TV_PATH
-                        path to destination folder for TV shows
-  -f FILM_PATH, --film_path FILM_PATH
-                        path to destination folder for films
-  -d, --debug           set this flag to prevent log files from being written
-                        and enable DEBUG-level output to console
+    usage: run_torrent_extracter.py [-h] [-t TV_PATH] [-f FILM_PATH] [-d] torrent
+    
+    Intelligently copies/extracts films and tv series to respective target
+    directories
+    
+    positional arguments:
+      torrent               the file path to the torrent to extract
+    
+    optional arguments:
+      -h, --help            show this help message and exit
+      -t TV_PATH, --tv_path TV_PATH
+                            path to destination folder for TV shows
+      -f FILM_PATH, --film_path FILM_PATH
+                            path to destination folder for films
+      -d, --debug           set this flag to prevent log files from being written
+                            and enable DEBUG-level output to console
 
 
 
