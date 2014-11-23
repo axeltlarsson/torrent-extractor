@@ -43,7 +43,7 @@ class TorrentExtracterTest(unittest.TestCase):
 	#@unittest.skip("lf")
 	def test_copying(self):
 		for download in self.downloads:
-			cmd = r'python3 ../torrent_extracter_runner.py -t /media/axel/test/tv_series -f /media/axel/test/films "' + self.path + download[0] + '"'
+			cmd = r'python3 ../run_torrent_extracter.py -t /media/axel/test/tv_series -f /media/axel/test/films "' + self.path + download[0] + '"'
 			output = subprocess.getoutput(cmd)
 			print(output)
 
@@ -52,6 +52,25 @@ class TorrentExtracterTest(unittest.TestCase):
 					self.assertTrue(os.path.exists(os.path.join('/media/axel/test', expected_file)))
 				except AssertionError as e:
 					self.errors.append(os.path.join('/media/axel/test', expected_file) + " did not exist")
+
+	def test_permission_checks(self):
+		noWriteToTv = r'python3 ../run_torrent_extracter.py -d -t /root "' + self.path + self.downloads[0][0] + '"'
+		noWriteToFilm = r'python3 ../run_torrent_extracter.py -d -f /root "' + self.path + self.downloads[0][0] + '"'
+		noWriteToLog = r'python3 ../run_torrent_extracter.py -d -l /root -f /media/axel/test/films "' + self.path + self.downloads[0][0] + '"'
+		torrentNotExisting = r'python3 ../run_torrent_extracter.py -d "Mumbo.Jumbo.S99E32.The.Episode.That.Never.Was-4K.H265.mkv"'
+
+		try:
+			output = subprocess.getoutput(noWriteToTv)
+			self.assertEqual(output, "[CRITICAL] No write permission to /root, exiting.")
+			output = subprocess.getoutput(noWriteToFilm)
+			self.assertEqual(output, "[CRITICAL] No write permission to /root, exiting.")
+			output = subprocess.getoutput(noWriteToLog)
+			self.assertTrue("[WARNING] No write permission to /root, no log file will be written." in output)
+			output = subprocess.getoutput(torrentNotExisting)
+			self.assertEqual(output, "[CRITICAL] Mumbo.Jumbo.S99E32.The.Episode.That.Never.Was-4K.H265.mkv does not exist, exiting.")
+
+		except AssertionError as e:
+			self.errors.append("Did not detect write permission error: " + output)
 
 if __name__ == '__main__':
     unittest.main()
