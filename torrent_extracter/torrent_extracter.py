@@ -40,8 +40,8 @@ def main():
 	# Set up a console handler
 	console_handler = StreamHandler(stream=sys.stderr)
 	console_handler.setLevel(logging.DEBUG if args.debug else logging.INFO)
-	console_formatter = logging.Formatter(fmt='[%(levelname)s] %(message)s', 
-		datefmt='%b %d %H:%M:%S')
+	console_formatter = logging.Formatter(fmt='[{levelname:8}] {message}', 
+		datefmt='%b %d %H:%M:%S', style="{")
 	console_handler.setFormatter(console_formatter)
 	log.addHandler(console_handler)
 
@@ -52,8 +52,8 @@ def main():
 			backupCount=5, # keep 5 backups
 			delay=True) # do not write the log file until first log message
 		file_handler.setLevel(logging.DEBUG) # will log everything
-		file_formatter = logging.Formatter(fmt='%(asctime)s %(name)s [%(levelname)s] %(message)s', 
-			datefmt='%b %d %H:%M:%S')
+		file_formatter = logging.Formatter(fmt='{asctime} [{levelname:8}] {message}', 
+			datefmt='%b %d %H:%M:%S', style='{')
 		file_handler.setFormatter(file_formatter)
 		log.addHandler(file_handler)
 	
@@ -69,6 +69,8 @@ def main():
 	if not os.access(os.path.dirname(os.path.abspath(settings.film_path)), os.W_OK):
 		log.critical("No write permission to " + os.path.abspath(settings.film_path) + ", exiting.")
 		sys.exit(1)
+
+	log.critical("Just kidding this is just a test, hehe")
 
 	#-----------------------------------
 	#	Processing request
