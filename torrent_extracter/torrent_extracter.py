@@ -70,8 +70,6 @@ def main():
 		log.critical("No write permission to " + os.path.abspath(settings.film_path) + ", exiting.")
 		sys.exit(1)
 
-	log.critical("Just kidding this is just a test, hehe")
-
 	#-----------------------------------
 	#	Processing request
 	#-----------------------------------
