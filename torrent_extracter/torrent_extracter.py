@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """torrent_extracter.torrent_extracter: provides entry point main()."""
 
-__version__ = "0.1"
+__version__ = "0.2"
 
 import re
 import sys
