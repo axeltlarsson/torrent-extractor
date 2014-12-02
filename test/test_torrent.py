@@ -36,10 +36,7 @@ class TorrentTest(unittest.TestCase):
 		self.filmdummies.append(('Catch Me If You Can 2002 1080p x264 DTS mkvrg', 'Catch Me If You Can'))
 		self.filmdummies.append(('Divergent.2014.720p.BluRay.DD5.1.x264-HiDt', 'Divergent'))
 		self.filmdummies.append(('James.Bond.007.The.World.Is.Not.Enough.1999.1080p.BluRay.x264-CiNEFiLE', 'James Bond 007 The World Is Not Enough'))
-
-		self.noncedummies = []
-		self.noncedummies.append('First Aid Kit - Stay Gold (2014) [FLAC]')
-		self.noncedummies.append('John Denver - The Very Best Of John Denver')
+		self.filmdummies.append(('Two.Days.One.Night.(Deux.Jours.une.Nuit).2014.Bluray.1080p.DTS-HD.x264-Grym', 'Two Days One Night (Deux Jours une Nuit)'))
 
 
 	def tearDown(self):
@@ -50,8 +47,6 @@ class TorrentTest(unittest.TestCase):
 		for nonce in self.tvepisodesdummies:
 			self.assertRaises(Exception, lambda: self.torrentFactory.make(nonce))
 		for nonce in self.filmdummies:
-			self.assertRaises(Exception, lambda: self.torrentFactory.make(nonce))
-		for nonce in self.noncedummies:
 			self.assertRaises(Exception, lambda: self.torrentFactory.make(nonce))
 
 	def test_has_ok_extension(self):
@@ -74,31 +69,6 @@ class TorrentTest(unittest.TestCase):
 				self.assertEqual(self.torrentFactory._TorrentFactory__match_film(film[0]), film[1])
 			except AssertionError as e:
 				self.errors.append(str(e))
-
-	def test_make_torrent(self):
-		for tv_series in self.tvepisodesdummies:
-			try:
-				actual = self.torrentFactory._TorrentFactory__make_torrent(tv_series[0], "dummy file path")
-				expected = TvEpisode(tv_series[-2:], "dummy file path")
-				self.assertEqual(actual, expected)
-			except AssertionError as e:
-				self.errors.append(str(e))
-		for film in self.filmdummies:
-			try:
-				actual = self.torrentFactory._TorrentFactory__make_torrent(film[0], "dummy file path")
-				expected = Film(film[1], "dummy file path")
-				self.assertEqual(actual, expected)
-			except AssertionError as e:
-				self.errors.append(str(e))
-
-	def test_match_nonce(self):
-		for nonce in self.noncedummies:
-			try:
-				self.assertEqual(self.torrentFactory._TorrentFactory__match_film(nonce), None)
-				self.assertEqual(self.torrentFactory._TorrentFactory__match_tv_series(nonce), None)
-			except AssertionError as e:
-				self.errors.append(str(e))
-
 
 if __name__ == '__main__':
     unittest.main()

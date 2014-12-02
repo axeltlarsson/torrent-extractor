@@ -25,7 +25,7 @@ class TorrentFactory(object):
 
 	# Returns title of film if *match_string* matches film pattern
 	def __match_film(self, match_string):
-		film = re.search(r'^(?:((?:\w+[\s\.-]+)+)\d{4}[\.\s])', match_string, re.IGNORECASE)
+		film = re.search(r'^(?:((?:\w+[\s\.\-\(\)]+)+)\d{4}[\.\s])', match_string, re.IGNORECASE)
 		if film and not re.search(r'.*sample.*', match_string, re.IGNORECASE):
 			return film.group(1).replace(".", " ").strip()
 
