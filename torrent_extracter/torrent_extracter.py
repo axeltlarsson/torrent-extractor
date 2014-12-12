@@ -73,6 +73,7 @@ def main():
 	#-----------------------------------
 	#	Processing request
 	#-----------------------------------
+	log.debug("torrent_extracter started with argument " + str(os.path.normpath(args.torrent)))
 	torrentFactory = TorrentFactory()
 	torrents = torrentFactory.make(os.path.normpath(args.torrent))
 	if not torrents:
