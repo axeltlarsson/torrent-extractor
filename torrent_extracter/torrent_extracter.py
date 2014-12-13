@@ -46,7 +46,7 @@ def main():
 	log.addHandler(console_handler)
 
 	# Set up a file handler that also rotates the logs, unless of course debug mode is set, then we only log to console
-	if not args.debug:
+	if not args.debug and os.access(os.path.dirname(os.path.abspath(log_file)), os.W_OK):
 		file_handler = RotatingFileHandler(log_file, 
 			maxBytes=30000, # gives about 220 lines before rotating
 			backupCount=5, # keep 5 backups
@@ -56,7 +56,7 @@ def main():
 			datefmt='%b %d %H:%M:%S', style='{')
 		file_handler.setFormatter(file_formatter)
 		log.addHandler(file_handler)
-	
+
 	# Some extra checks on the arguments		
 	if not os.path.exists(os.path.normpath(args.torrent)):
 		log.critical(os.path.normpath(args.torrent) + " does not exist, exiting.")
@@ -73,7 +73,6 @@ def main():
 	#-----------------------------------
 	#	Processing request
 	#-----------------------------------
-	log.debug("torrent_extracter started with argument " + str(os.path.normpath(args.torrent)))
 	torrentFactory = TorrentFactory()
 	torrents = torrentFactory.make(os.path.normpath(args.torrent))
 	if not torrents:
