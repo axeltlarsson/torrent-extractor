@@ -38,7 +38,7 @@ def main():
 	log.setLevel(logging.DEBUG) # let the handlers filter instead
 
 	# Set up a console handler
-	console_handler = StreamHandler(stream=sys.stderr)
+	console_handler = StreamHandler(stream=sys.stdout)
 	console_handler.setLevel(logging.DEBUG if args.debug else logging.INFO)
 	console_formatter = logging.Formatter(fmt='[{levelname:8}] {message}', 
 		datefmt='%b %d %H:%M:%S', style="{")
