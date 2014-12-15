@@ -25,5 +25,6 @@ setup(
 	long_description = long_descr,
 	author = "Axel Larsson",
 	author_email = "mail@axellarsson.nu",
-	url = "http.//axellarsson.nu"
+	url = "http.//axellarsson.nu",
+	install_requires=['colorlog']
 	)

@@ -12,6 +12,7 @@ from .torrent import TorrentFactory
 import logging
 from logging.handlers import RotatingFileHandler
 from logging import StreamHandler
+from colorlog import ColoredFormatter
 
 # Handles the command line parsing and starts the process of extracting/copying
 def main():
@@ -40,10 +41,29 @@ def main():
 	# Set up a console handler
 	console_handler = StreamHandler(stream=sys.stdout)
 	console_handler.setLevel(logging.DEBUG if args.debug else logging.INFO)
-	console_formatter = logging.Formatter(fmt='[{levelname:8}] {message}', 
-		datefmt='%b %d %H:%M:%S', style="{")
+	#console_formatter = logging.Formatter(fmt='[{levelname:8}] {message}', 
+	#	datefmt='%b %d %H:%M:%S', style="{")
+
+	console_formatter = ColoredFormatter(
+		"{log_color}[{levelname:8}]{reset} {message}'", 
+		datefmt='%b %d %H:%M:%S', 
+		style="{",
+		log_colors={
+            'DEBUG':    'cyan',
+            'INFO':     'green',
+            'WARNING':  'yellow',
+            'ERROR':    'red',
+            'CRITICAL': 'red',
+    	}
+	)
+
 	console_handler.setFormatter(console_formatter)
 	log.addHandler(console_handler)
+	log.debug("DEBUG MESSAGER")
+	log.info("INFO MESSAGE")
+	log.warning("WARNING THOU")
+	log.error("ERROR yo")
+	log.critical("beep. CRITCALIL TIME TO SHUT DOWN...")
 
 	# Set up a file handler that also rotates the logs, unless of course debug mode is set, then we only log to console
 	if not args.debug and os.access(os.path.dirname(os.path.abspath(log_file)), os.W_OK):
