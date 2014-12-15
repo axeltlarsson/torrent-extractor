@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """torrent_extracter.torrent_extracter: provides entry point main()."""
 
-__version__ = "0.2"
+__version__ = "0.3"
 
 import re
 import sys
@@ -56,14 +56,8 @@ def main():
             'CRITICAL': 'red',
     	}
 	)
-
 	console_handler.setFormatter(console_formatter)
 	log.addHandler(console_handler)
-	log.debug("DEBUG MESSAGER")
-	log.info("INFO MESSAGE")
-	log.warning("WARNING THOU")
-	log.error("ERROR yo")
-	log.critical("beep. CRITCALIL TIME TO SHUT DOWN...")
 
 	# Set up a file handler that also rotates the logs, unless of course debug mode is set, then we only log to console
 	if not args.debug and os.access(os.path.dirname(os.path.abspath(log_file)), os.W_OK):
@@ -72,8 +66,18 @@ def main():
 			backupCount=5, # keep 5 backups
 			delay=True) # do not write the log file until first log message
 		file_handler.setLevel(logging.DEBUG) # will log everything
-		file_formatter = logging.Formatter(fmt='{asctime} [{levelname:8}] {message}', 
-			datefmt='%b %d %H:%M:%S', style='{')
+		file_formatter = ColoredFormatter(
+				'{log_color}{asctime} [{levelname:8}]{reset} {message}',
+				datefmt='%b %d %H:%M:%S',
+				style='{',
+				log_colors={
+		            'DEBUG':    'cyan',
+		            'INFO':     'green',
+		            'WARNING':  'yellow',
+		            'ERROR':    'red',
+		            'CRITICAL': 'red',
+		    	}
+		)
 		file_handler.setFormatter(file_formatter)
 		log.addHandler(file_handler)
 
