@@ -45,7 +45,7 @@ def main():
 	#	datefmt='%b %d %H:%M:%S', style="{")
 
 	console_formatter = ColoredFormatter(
-		"{log_color}[{levelname:8}]{reset} {message}'", 
+		"{log_color}[{levelname:8}]{reset} {message}", 
 		datefmt='%b %d %H:%M:%S', 
 		style="{",
 		log_colors={
