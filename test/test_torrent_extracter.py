@@ -22,6 +22,7 @@ class TorrentExtracterTest(unittest.TestCase):
 		#self.downloads.append('The.Lord.of.The.Rings.Extended.Edition.Trilogy.1080p.Blu-Ray.DTSMA.dxva.x264-FLAWL3SS')
 		self.downloads.append(('Game.of.Thrones.S04E07.1080p.HDTV.AC3-REsuRRecTioN.mkv', 'tv_series/Game of Thrones/Season 4/Game.of.Thrones.S04E07.1080p.HDTV.AC3-REsuRRecTioN.mkv'))
 		self.downloads.append(('The.Salvation.2014.1080p.BluRay.x264.DTS-RARBG', 'films/The Salvation/English_FORCED.srt', 'films/The Salvation/The.Salvation.2014.1080p.BluRay.x264.DTS-RARBG.mkv'))
+		self.downloads.append(('Horns.2013.1080p.BluRay.AVC.DTS-HD.MA.5.1-HDAccess.iso', 'films/Horns/Horns.2013.1080p.BluRay.AVC.DTS-HD.MA.5.1-HDAccess.iso'))
 		self.nonce = []
 
 	def tearDown(self):

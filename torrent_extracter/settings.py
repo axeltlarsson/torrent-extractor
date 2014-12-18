@@ -14,7 +14,7 @@ class Settings:
             return repr(self)
 
     # List with supported extensions
-    ok_extensions = ['.mkv', '.ts', '.avi', '.srt', '.sub']
+    ok_extensions = ['.mkv', '.ts', '.avi', '.iso', '.srt', '.sub']
 
     # Instance variable for Singleton use
     instance = None

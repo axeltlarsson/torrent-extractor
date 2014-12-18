@@ -37,6 +37,7 @@ class TorrentTest(unittest.TestCase):
 		self.filmdummies.append(('Divergent.2014.720p.BluRay.DD5.1.x264-HiDt', 'Divergent'))
 		self.filmdummies.append(('James.Bond.007.The.World.Is.Not.Enough.1999.1080p.BluRay.x264-CiNEFiLE', 'James Bond 007 The World Is Not Enough'))
 		self.filmdummies.append(('Two.Days.One.Night.(Deux.Jours.une.Nuit).2014.Bluray.1080p.DTS-HD.x264-Grym', 'Two Days One Night (Deux Jours une Nuit)'))
+		self.filmdummies.append(('Horns.2013.1080p.BluRay.AVC.DTS-HD.MA.5.1-HDAccess', 'Horns'))
 
 
 	def tearDown(self):
