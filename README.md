@@ -1,4 +1,4 @@
-# torrent_extracter by Axel Larsson
+# torrent_extracter
 
 The torrent_extracter script is written in python3 and its purpose is to first analyse a given file path to determine what sort of media it points to, for example a film or a tv series episode or
 season pack. The script then either copies this/these file/files to a suitable directory such as "films/Film name/film.file.mkv" if a film or "series/Series name/Season #/episode.mkv" if a 
