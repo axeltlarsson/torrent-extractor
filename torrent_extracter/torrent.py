@@ -17,7 +17,7 @@ class TorrentFactory(object):
 
 	# Returns a tuple of (tv series name, season #) if *match_string* matches TV series pattern
 	def __match_tv_series(self, match_string):
-		tv_show = re.search(r'(^[\w\.\s\-]+?)-*[\s\.](?:(?:(?:S|Season)(?:\w|\S)(\d{1,2}))|(?:(\d{1,2})x\d\d))', match_string, re.IGNORECASE)
+		tv_show = re.search(r'(^[\w\.\s\-]+?)-*[\s\.](?:(?:(?:S|Season)[\s\.\_]?(\d{1,2}))|(?:(\d{1,2})x\d\d))', match_string, re.IGNORECASE)
 		if tv_show and not re.search(r'.*sample.*', match_string, re.IGNORECASE):
 			name = tv_show.group(1).replace(".", " ").replace("_", " ").strip()
 			season = tv_show.group(2) or tv_show.group(3) # The season number is group 2, or 3 if season pack or form sxep

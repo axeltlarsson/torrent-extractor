@@ -28,6 +28,9 @@ class TorrentTest(unittest.TestCase):
 		self.tvepisodesdummies.append(('House.of.Cards.2013.S02.1080p.NF.WEBRip.DD5.1.x264-NTb', 'House of Cards 2013', 'Season 2'))
 		self.tvepisodesdummies.append(('Downton_Abbey.5x01.720p_HDTV_x264-FoV', 'Downton Abbey', 'Season 5'))
 		self.tvepisodesdummies.append(('Brooklyn.Nine-Nine.S02E06.720p.HDTV.x264-KILLERS', 'Brooklyn Nine-Nine', 'Season 2'))
+		self.tvepisodesdummies.append(('Top.Gear.UK.S22E02.1080p.HDTV.x264-FaiLED.mkv', 'Top Gear UK', 'Season 22'))
+		self.tvepisodesdummies.append(('Top.Gear.S22E03.720p.HDTV.x264-ORGANiC.mkv', 'Top Gear', 'Season 22'))
+		self.tvepisodesdummies.append(('Top_Gear.22x01.720p_HDTV_x264-FoV', 'Top Gear', 'Season 22'))
 
 		# These are also just dummy names, the files does not actually exist, the format is (file name, film title)
 		self.filmdummies = []
