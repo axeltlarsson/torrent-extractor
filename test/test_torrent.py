@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# Run the tests from the project root (torrent_extracter) with: python3 -m unittest discover --pattern=test_*
+# Run the tests from the test dir with "python3 -m unittest test_*"
 
 import unittest, os, sys
 
