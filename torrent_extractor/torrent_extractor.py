@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""torrent_extracter.torrent_extracter: provides entry point main()."""
+"""torrent_extractor.torrent_extractor: provides entry point main()."""
 
 __version__ = "0.31"
 
@@ -23,14 +23,14 @@ def main():
 	parser.add_argument("-t", "--tv_path", help="path to destination folder for TV shows, default is /tmp/films")
 	parser.add_argument("-f", "--film_path", help="path to destination folder for films, default is /tmp/tv_series")
 	parser.add_argument("-d", "--debug", action="store_true", help="set this flag to prevent log files from being written and enable DEBUG-level output to console")
-	parser.add_argument("-l", "--log_file", help="path to log file, default is ./torrent_extracter.log")
+	parser.add_argument("-l", "--log_file", help="path to log file, default is ./torrent_extractor.log")
 	parser.add_argument("torrent", help="the file path to the torrent to extract")
 	args = parser.parse_args()
 
 	settings = Settings()
 	settings.tv_path = os.path.normpath(args.tv_path or "/tmp/tv_series")
 	settings.film_path = os.path.normpath(args.film_path or "/tmp/films")
-	log_file = os.path.normpath(args.log_file or "./torrent_extracter.log")
+	log_file = os.path.normpath(args.log_file or "./torrent_extractor.log")
 
 	#-----------------------------------
 	#	Set up logging

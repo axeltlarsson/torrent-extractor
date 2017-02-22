@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""torrent_extacter.settings: settings module used to store settings"""
+"""torrent_extactor.settings: settings module used to store settings"""
 
 class Settings:
     

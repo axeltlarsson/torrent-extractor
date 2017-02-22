@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 
-"""torrent_extracter.torrent: provides data structure"""
+"""torrent_extractor.torrent: provides data structure"""
 from .settings import Settings
-import torrent_extracter.rarfile as rarfile
+import torrent_extractor.rarfile as rarfile
 import re
 import os
 import shutil

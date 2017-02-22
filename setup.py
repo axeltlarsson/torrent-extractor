@@ -7,7 +7,7 @@ import re
 from setuptools import setup
 
 version = re.search('^__version__\s*=\s*"(.*)"',
-	open('torrent_extracter/torrent_extracter.py').read(),
+	open('torrent_extractor/torrent_extractor.py').read(),
 	re.M
 	).group(1)
 
@@ -15,10 +15,10 @@ with open("README.md", "rb") as f:
 	long_descr = f.read().decode("utf-8")
 
 setup(
-	name="torrent_extracter",
-	packages=["torrent_extracter"],
+	name="torrent_extractor",
+	packages=["torrent_extractor"],
 	entry_points =  {
-		"console_scripts": ['torrent_extracter = torrent_extracter.torrent_extracter:main']
+		"console_scripts": ['torrent_extractor = torrent_extractor.torrent_extractor:main']
 	},
 	version = version,
 	description = "Torrent extracting script.",
