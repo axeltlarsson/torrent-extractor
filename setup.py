@@ -11,14 +11,14 @@ version = re.search('^__version__\s*=\s*"(.*)"',
 	re.M
 	).group(1)
 
-with open("README.md", "rb") as f:
+with open("../README.md", "rb") as f:
 	long_descr = f.read().decode("utf-8")
 
 setup(
-	name="torrent_extractor",
+	name="torrent-extractor",
 	packages=["torrent_extractor"],
 	entry_points =  {
-		"console_scripts": ['torrent_extractor = torrent_extractor.torrent_extractor:main']
+		"console_scripts": ['torrent-extractor = torrent_extractor.torrent_extractor:main']
 	},
 	version = version,
 	description = "Torrent extracting script.",

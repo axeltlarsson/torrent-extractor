@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+# -*- coding: utf-8 -*-
 
 """torrent_extractor.torrent: provides data structure"""
 from .settings import Settings
