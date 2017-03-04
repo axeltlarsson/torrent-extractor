@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 """torrent_extactor.settings: settings module used to store settings"""
 
+
 class Settings:
-    
     class __Settings:
         def __init__(self):
             self.tv_path = ""
@@ -28,4 +28,4 @@ class Settings:
         return getattr(self.instance, name)
 
     def __setattr__(self, name):
-    	return setattr(self.instance, name)
+        return setattr(self.instance, name)
