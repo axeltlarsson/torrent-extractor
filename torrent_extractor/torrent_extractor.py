@@ -12,7 +12,7 @@ from logging.handlers import RotatingFileHandler
 from logging import StreamHandler
 from colorlog import ColoredFormatter
 
-__version__ = "0.31"
+__version__ = "1.0"
 
 
 # Handles the command line parsing and starts the process of extracting/copying
