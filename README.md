@@ -13,6 +13,7 @@ currently supported file extensions are:
 - .avi
 - .sub
 - .srt
+- .mp4
 
 ## Installation
 
