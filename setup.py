@@ -24,4 +24,4 @@ setup(
     author="Axel Larsson",
     author_email="mail@axellarsson.nu",
     url="http.//axellarsson.nu",
-    install_requires=['colorlog'])
+    install_requires=['colorlog', 'titlecase'])

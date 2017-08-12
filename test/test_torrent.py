@@ -114,6 +114,26 @@ class TorrentTest(unittest.TestCase):
             except AssertionError as e:
                 self.errors.append(str(e))
 
+    def test_tv_title_normalisation(self):
+        def to_file_name(title):
+            return '.'.join(title.split(' ')) +  '.S07E01.Episode.Title.1080p.Source.Release-Group.mkv'
+
+        def assert_destination(file_name, expected):
+            title_season = self.torrentFactory._TorrentFactory__match_tv_series(file_name)
+            torrent = TvEpisode(title_season, file_name)
+            self.assertEqual(torrent.destination.split('/')[0], expected)
+
+        assert_destination(to_file_name('Game of Thrones'), 'Game of Thrones')
+        assert_destination(to_file_name('Game Of Thrones'), 'Game of Thrones')
+        assert_destination(to_file_name('The Night Of 2016'), 'The Night Of 2016')
+        assert_destination(to_file_name('The Night of 2016'), 'The Night Of 2016')
+        assert_destination(to_file_name('The night of'), 'The Night Of')
+        assert_destination(to_file_name('iZombie'), 'iZombie')
+        assert_destination(to_file_name('FireFly'), 'FireFly')
+        assert_destination(to_file_name('parks and recreation'), 'Parks and Recreation')
+        assert_destination(to_file_name('this is us'), 'This Is Us')
+        assert_destination(to_file_name('taboo UK'), 'Taboo UK')
+
     def test_match_film(self):
         for film in self.filmdummies:
             try:

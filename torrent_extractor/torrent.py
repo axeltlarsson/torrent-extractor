@@ -7,6 +7,7 @@ import re
 import os
 import shutil
 import logging
+from titlecase import titlecase
 
 log = logging.getLogger("t_e.torrent")
 
@@ -187,12 +188,20 @@ class TvEpisode(Torrent):
 
     def __init__(self, title_season, file_path):
         Torrent.__init__(self, file_path)
-        self.title_season = title_season  # (title, season)
-        self.destination = os.path.join(
-            Settings().tv_path, self.title_season[0], self.title_season[1])
+        (self.title, self.season) = title_season  # (title, season)
+        # titlecase the title excluding any year in it (`The Night Of 2016`, not `The Night of 2016`)
+        year = re.search(r'\d{4}', self.title)
+        if year:
+            title_without_year = year.string[:year.start()].strip()
+            self.title = titlecase(title_without_year) + ' ' + year.group()
+        else:
+            self.title = titlecase(self.title.strip())
+
+
+        self.destination = os.path.join(Settings().tv_path, self.title, self.season)
 
     def __str__(self):
-        return str(self.title_season) + " " + self.file_path
+        return "{}/{}/{}".format(self.title, self.season, self.file_path)
 
 
 class Film(Torrent):
@@ -204,7 +213,7 @@ class Film(Torrent):
         self.destination = os.path.join(Settings().film_path, title)
 
     def __str__(self):
-        return self.title + " " + self.file_path
+        return "{}/{}".format(self.title, self.file_path)
 
 
 class RarTorrent(Torrent):
@@ -217,7 +226,7 @@ class RarTorrent(Torrent):
         Torrent.__init__(self, file_path)
 
     def __str__(self):
-        return str(self.torrent) + " " + str(self.rarinfo.filename)
+        return "{} [{}]".format(self.torrent, str(self.rarinfo.filename))
 
     def copy(self):
         if not os.path.exists(self.torrent.destination):
