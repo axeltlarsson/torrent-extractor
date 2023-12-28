@@ -18,11 +18,8 @@ currently supported file extensions are:
 ## Installation
 
 ### Docker
-`docker build -t torrent-extractor .`
 
-And to run it:
-
-`docker run -it --rm torent-extractor`
+See andrimner repo.
 
 ### Traditional
 First, you need to have the setuptools module installed, this can be installed with
